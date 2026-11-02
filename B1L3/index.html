@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Where Are the Cats?</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="audio.js" defer></script>
+  <script src="game.js" defer></script>
+</head>
+<body>
+<main>
+  <header><div><p class="eyebrow">康軒 B1L3 · 位置介系詞</p><h1>Where Are the Cats?</h1></div><span id="progress">1 / 6</span></header>
+  <section class="question" aria-labelledby="sentence"><div><p class="eyebrow" id="question-label">QUESTION 01</p><h2 id="sentence">Lucy is <span class="preposition">in</span> the box.</h2></div><button id="next" disabled>Next →</button></section>
+  <div class="audio-controls"><button id="listen" class="secondary" disabled>再聽一次</button><button id="music-toggle" class="secondary" aria-pressed="true">背景音樂：開</button><button id="restart" class="secondary" title="清除所有貓咪與答題進度，回到 START" disabled>重新開始</button><span id="audio-status" role="status" aria-live="polite">英文題目會唸兩遍，中間間隔 1 秒。</span></div>
+  <div id="answer-timer" role="timer" aria-label="答題計時" aria-live="off"><span>本題 <strong id="question-time">00:00</strong></span><span>總計 <strong id="total-time">00:00</strong></span><span id="timer-status">尚未開始</span></div>
+  <div class="status-line"><p id="feedback" role="status" aria-live="polite">把貓咪拖到句子描述的位置。</p><span id="placed-count"></span></div>
+  <section id="room" class="waiting" aria-label="房間：將指定貓咪拖曳到正確位置" tabindex="-1">
+    <img class="background" src="assets/images/room.png" alt="房間左側是箱子與椅子，中間有桌子，右側是電視與機器狗。" draggable="false">
+    <div id="placed-cats"></div>
+    <img id="box-front" src="assets/images/box-front.png" alt="" draggable="false">
+    <img id="table-front" class="foreground" src="assets/images/table-front.png" alt="" draggable="false">
+    <img id="robot-dog-front" class="foreground" src="assets/images/robot-dog-front.png" alt="" draggable="false">
+    <div id="placement-cursor" hidden></div>
+    <div id="audio-start"><button id="start-audio">START</button><span>點選開始遊戲與英文朗讀</span></div>
+  </section>
+  <section class="dock" aria-label="本題貓咪"><div class="dock-label"><strong>YOUR CATS</strong><span>拖曳貓咪到房間<br>也可先點貓咪，再點位置</span></div><div id="cat-tray"></div></section>
+  <p class="keyboard-help">鍵盤：選取貓咪後，以方向鍵移動位置，Enter 放下，Esc 取消。答對的貓咪會留在房間。</p>
+  <section id="complete" hidden aria-labelledby="complete-title"><div class="complete-card"><p class="eyebrow">ALL 6 QUESTIONS COMPLETE</p><h2 id="complete-title">You found all the cats!</h2><p>七隻貓咪都找到正確的位置了！</p><p id="complete-time"></p><button id="again">Play Again</button><button id="view-room" class="secondary">看看完成的房間</button></div></section>
+  <p id="asset-error" role="alert" hidden>圖片無法載入。請確認 assets/images 資料夾完整，並重新開啟 index.html。</p>
+  <details class="sound-credits"><summary>音效來源</summary><p>答對貓叫：<a href="https://freesound.org/s/730100/" target="_blank" rel="noopener">Sadiquecat / Freesound</a>，CC0，已調整音量。掌聲與歡呼：<a href="https://freesound.org/people/Zeraora/sounds/429422/" target="_blank" rel="noopener">Zeraora / Freesound</a>，CC0。背景音樂為本遊戲原創。</p></details>
+</main>
+</body>
+</html>
