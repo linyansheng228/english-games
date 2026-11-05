@@ -42,4 +42,5 @@
 
 - unhappy-cat.wav：專案原創合成音效，由 tools/prepare_effects.py 製作。
 - question-1.mp3 至 question-6.mp3：六句英文題目的自然語音音檔，由 tools/prepare_voice.py 製作。
+- challenge/：Challenge 目前可生成的句子錄音。使用同一個腳本的 `--challenge` 選項，以和 Basic 相同的 Jenny 美式女聲及語速製作。
 - correct.wav：舊版和弦提示音，保留作為開發素材；遊戲已改用 happy-cat.wav。

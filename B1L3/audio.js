@@ -17,7 +17,10 @@
     if(musicEnabled)playMusic();else music.pause();
   }
   function stopEffects(){effectVersion++;effectPlaying=false;for(const audio of Object.values(effects)){audio.onended=null;audio.pause();audio.currentTime=0;}}
-  function stop(){generation++;clearTimeout(timer);timer=null;reading=false;voice.onended=null;voice.onerror=null;voice.pause();voice.removeAttribute('src');voice.load();stopEffects();updateMusic();status().textContent='英文題目會唸兩遍，中間間隔 1 秒。';}
+  function stop(){
+    generation++;
+    clearTimeout(timer);timer=null;reading=false;voice.onended=null;voice.onerror=null;voice.pause();voice.removeAttribute('src');voice.load();stopEffects();updateMusic();status().textContent='英文題目會唸兩遍，中間間隔 1 秒。';
+  }
   function beginSession(){sessionActive=true;playMusic();}
   function endSession(){sessionActive=false;stop();music.pause();music.currentTime=0;}
   function unlock(){if(unlocked)return;unlocked=true;for(const audio of Object.values(effects)){audio.load();}}
@@ -27,11 +30,16 @@
     audio.onended=complete;
     audio.play().catch(e=>{complete();if(e.name!=='AbortError')status().textContent='音效未能播放，請檢查瀏覽器音訊設定。';});
   }
-  async function read(index){
+  function read(index){return readFile(`assets/audio/question-${index+1}.mp3`);}
+  function speak(sentence){
+    const slug=sentence.toLowerCase().replace(/[^a-z]+/g,'-').replace(/-$/,'');
+    return readFile(`assets/audio/challenge/${slug}.mp3`);
+  }
+  async function readFile(file){
     stop();
     const token=generation;
     reading=true;updateMusic();
-    voice.src=`assets/audio/question-${index+1}.mp3`;
+    voice.src=file;
     voice.preload='auto';
     let repeat=1;
     function fail(){if(token===generation){reading=false;updateMusic();status().textContent='朗讀未能播放，請按「再聽一次」或檢查音訊設定。';}}
@@ -50,5 +58,5 @@
   }
   document.addEventListener('visibilitychange',()=>{if(document.hidden)music.pause();else playMusic();});
   window.addEventListener('pagehide',endSession);
-  window.catAudio={read,stop,unlock,effect,toggleMusic,beginSession,endSession};
+  window.catAudio={read,speak,stop,unlock,effect,toggleMusic,beginSession,endSession};
 })();
